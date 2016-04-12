@@ -1,4 +1,4 @@
-System.register(['angular2/core', './hero-detail.component', './hero.service'], function(exports_1, context_1) {
+System.register(['angular2/core', './heroes.component', './hero.service', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,44 +10,45 @@ System.register(['angular2/core', './hero-detail.component', './hero.service'], 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hero_detail_component_1, hero_service_1;
+    var core_1, heroes_component_1, hero_service_1, router_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (hero_detail_component_1_1) {
-                hero_detail_component_1 = hero_detail_component_1_1;
+            function (heroes_component_1_1) {
+                heroes_component_1 = heroes_component_1_1;
             },
             function (hero_service_1_1) {
                 hero_service_1 = hero_service_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(_heroservice) {
-                    this._heroservice = _heroservice;
+                function AppComponent() {
                     this.title = 'Tour of Heroes';
                 }
-                AppComponent.prototype.ngOnInit = function () {
-                    this.getHeroes();
-                };
-                AppComponent.prototype.getHeroes = function () {
-                    var _this = this;
-                    this._heroservice.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
-                };
-                AppComponent.prototype.onSelect = function (hero) {
-                    this.selectedHero = hero;
-                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    <h1>{{title}}</h1>\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n        <li *ngFor=\"#hero of heroes\" (click)=\"onSelect(hero)\" [class.selected]=\"hero === selectedHero\">\n            <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n        </li>\n    </ul>\n    <my-hero-detail [hero]=\"selectedHero\"></my-hero-detail>\n    ",
-                        styles: ["\n    .selected \n    {\n      background-color: #CFD8DC !important;\n      color: white;\n    }\n    .heroes \n    {\n      margin: 0 0 2em 0;\n      list-style-type: none;\n      padding: 0;\n      width: 15em;\n    }\n    .heroes li \n    {\n      cursor: pointer;\n      position: relative;\n      left: 0;\n      background-color: #EEE;\n      margin: .5em;\n      padding: .3em 0;\n      height: 1.6em;\n      border-radius: 4px;\n    }\n    .heroes li.selected:hover \n    {\n      background-color: #BBD8DC !important;\n      color: white;\n    }\n    .heroes li:hover \n    {\n      color: #607D8B;\n      background-color: #DDD;\n      left: .1em;\n    }\n    .heroes .text \n    {\n      position: relative;\n      top: -3px;\n    }\n    .heroes .badge \n    {\n      display: inline-block;\n      font-size: small;\n      color: white;\n      padding: 0.8em 0.7em 0 0.7em;\n      background-color: #607D8B;\n      line-height: 1em;\n      position: relative;\n      left: -1px;\n      top: -4px;\n      height: 1.8em;\n      margin-right: .8em;\n      border-radius: 4px 0 0 4px;\n    }\n  "],
-                        directives: [hero_detail_component_1.HeroDetailComponent],
-                        providers: [hero_service_1.HeroService]
-                    }), 
-                    __metadata('design:paramtypes', [hero_service_1.HeroService])
+                        template: "\n  <h1>{{title}}</h1>\n  <a [routerLink]=\"['Heroes']\">Heroes</a>\n  <router-outlet></router-outlet>\n  ",
+                        directives: [router_1.ROUTER_DIRECTIVES],
+                        providers: [
+                            router_1.ROUTER_PROVIDERS,
+                            hero_service_1.HeroService
+                        ]
+                    }),
+                    router_1.RouteConfig([
+                        {
+                            path: '/heroes',
+                            name: 'Heroes',
+                            component: heroes_component_1.HeroesComponent
+                        }
+                    ]), 
+                    __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             }());
@@ -55,5 +56,4 @@ System.register(['angular2/core', './hero-detail.component', './hero.service'], 
         }
     }
 });
-//left of here https://angular.io/docs/ts/latest/tutorial/toh-pt4.html 
 //# sourceMappingURL=app.component.js.map
